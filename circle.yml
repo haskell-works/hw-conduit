@@ -1,0 +1,46 @@
+machine:
+  environment:
+    CABAL_INSTALL_FLAGS: |
+        -j
+        --force-reinstalls
+        --upgrade-dependencies
+        --disable-library-profiling
+        --disable-executable-profiling
+        --disable-documentation
+        --disable-library-coverage
+        --disable-benchmarks
+  post:
+    - curl https://nixos.org/nix/install | sh
+
+dependencies:
+  cache_directories:
+    - "~/.cabal"
+    - "~/.ghc"
+  pre:
+    - cp ./scripts/* ~/bin/
+    - nox when deps nix-env -i ghc-7.10.3
+    - nox when deps nix-env -i cabal-install-1.22.9.0
+    - nox when deps cabal update
+    - nox when deps cabal install -j $CABAL_INSTALL_FLAGS --only-dependencies
+    - nox when deps cabal install -j $CABAL_INSTALL_FLAGS --only-dependencies --enable-tests
+    - nox when deps cabal install -j $CABAL_INSTALL_FLAGS --only-dependencies --enable-benchmarks
+    - nox when deps cabal install -j --force-reinstalls --reinstall hspec-discover
+    - nox when deps ln -sf ~/.cabal/bin/hspec-discover ~/bin/hspec-discover
+  override:
+    - nox when build cabal build -j
+test:
+  override:
+    - nox when test cabal test
+
+deployment:
+  release_branch:
+    owner: haskell-works
+    branch: /v.*/
+    commands:
+      - nox when tag autotag
+
+  hackage:
+    owner: haskell-works
+    tag: /v.*/
+    commands:
+      - nox when deploy publish
