@@ -18,16 +18,9 @@ executable hw-conduit-example
   hs-source-dirs:       app
   main-is:              Main.hs
   ghc-options:          -threaded -rtsopts -with-rtsopts=-N -O2 -Wall -msse4.2
-  build-depends:        base            >= 4
-                      , bytestring
-                      , conduit
+  build-depends:        base              >= 4
                       , criterion
-                      , hw-bits
-                      , hw-prim
                       , hw-conduit
-                      , mmap
-                      , resourcet
-                      , vector
   default-language:     Haskell2010
 
 library
@@ -37,26 +30,13 @@ library
                       , HaskellWorks.Data.Conduit.Json.Blank
                       , HaskellWorks.Data.Conduit.Json.Words
                       , HaskellWorks.Data.Conduit.List
-  build-depends:        base                            >= 4.7  && < 5
+  build-depends:        base              >= 4.7  && < 5
                       , array
-                      , attoparsec                      >= 0.10
                       , bytestring
-                      , conduit                         >= 1.1  && < 1.3
-                      , deepseq                         <  1.5
-                      , ghc-prim
+                      , conduit
                       , hw-bits
                       , hw-prim
-                      , lens
-                      , mmap
-                      , mono-traversable
-                      , parsec
-                      , QuickCheck
-                      , random
-                      , resourcet                       >= 1.1
-                      , safe
-                      , text
-                      , vector
-                      , word8
+                      , resourcet
 
   default-language:     Haskell2010
   ghc-options:          -rtsopts -with-rtsopts=-N -Wall -O2 -Wall -msse4.2
@@ -68,19 +48,14 @@ test-suite hw-conduit-test
   other-modules:        HaskellWorks.Data.Conduit.ByteStringSpec
                       , HaskellWorks.Data.Conduit.Json.BlankSpec
   build-depends:        base
-                      , attoparsec                      >= 0.10
+                      , array
                       , bytestring
-                      , conduit                         >= 1.1  && < 1.3
-                      , hspec                           >= 1.3
+                      , conduit
+                      , hspec
                       , hw-bits
                       , hw-prim
                       , hw-conduit
-                      , mmap
-                      , parsec
-                      , QuickCheck
-                      , resourcet                       >= 1.1
-                      , transformers
-                      , vector
+                      , resourcet
   ghc-options:          -threaded -rtsopts -with-rtsopts=-N -Wall
   default-language:     Haskell2010
 
@@ -98,8 +73,6 @@ benchmark bench
                       , bytestring
                       , conduit
                       , criterion
-                      , hw-bits
-                      , hw-prim
                       , hw-conduit
                       , mmap
                       , resourcet
