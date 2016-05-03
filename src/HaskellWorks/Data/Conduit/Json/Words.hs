@@ -6,11 +6,32 @@ import           Data.Word
 wBackslash :: Word8
 wBackslash = fromIntegral (ord '\\')
 
+wBackspace :: Word8
+wBackspace = fromIntegral (ord '\b')
+
 wDoubleQuote :: Word8
 wDoubleQuote = fromIntegral (ord '"')
 
 wUnderscore :: Word8
 wUnderscore = fromIntegral (ord '_')
+
+wNewline :: Word8
+wNewline = fromIntegral (ord '\n')
+
+wLinefeed :: Word8
+wLinefeed = fromIntegral (ord '\f')
+
+wCarriageReturn :: Word8
+wCarriageReturn = fromIntegral (ord '\r')
+
+wTab :: Word8
+wTab = fromIntegral (ord '\t')
+
+wQuote :: Word8
+wQuote = fromIntegral (ord '\'')
+
+wSlash :: Word8
+wSlash = fromIntegral (ord '/')
 
 wSpace :: Word8
 wSpace = fromIntegral (ord ' ')
@@ -42,6 +63,12 @@ wA = fromIntegral (ord 'A')
 wa :: Word8
 wa = fromIntegral (ord 'a')
 
+wB :: Word8
+wB = fromIntegral (ord 'B')
+
+wb :: Word8
+wb = fromIntegral (ord 'b')
+
 we :: Word8
 we = fromIntegral (ord 'e')
 
@@ -53,6 +80,9 @@ wf = fromIntegral (ord 'f')
 
 wn :: Word8
 wn = fromIntegral (ord 'n')
+
+wr :: Word8
+wr = fromIntegral (ord 'r')
 
 wt :: Word8
 wt = fromIntegral (ord 't')
