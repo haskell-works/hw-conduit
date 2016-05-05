@@ -35,6 +35,7 @@ library
                       , conduit
                       , hw-bits
                       , resourcet
+                      , word8
 
   default-language:     Haskell2010
   ghc-options:          -rtsopts -with-rtsopts=-N -Wall -O2 -Wall -msse4.2

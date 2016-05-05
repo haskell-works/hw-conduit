@@ -17,13 +17,13 @@ import           Data.ByteString                      as BS
 import           Data.Conduit
 import           Data.Int
 import           Data.Word
+import           Data.Word8
 import           HaskellWorks.Data.Bits.BitWise
-import           HaskellWorks.Data.Conduit.Json.Words
 import           Prelude                              as P
 
 interestingWord8s :: A.UArray Word8 Word8
 interestingWord8s = A.array (0, 255) [
-  (w, if w == wOpenBracket || w == wOpenBrace || w == wOpenParen || w == wt || w == wf || w == wn || w == w1
+  (w, if w == _bracketleft || w == _braceleft || w == _parenleft || w == _t || w == _f || w == _n || w == _1
     then 1
     else 0)
   | w <- [0 .. 255]]
@@ -69,16 +69,16 @@ blankedJsonToBalancedParens' :: Monad m => BS.ByteString -> Conduit BS.ByteStrin
 blankedJsonToBalancedParens' bs = case BS.uncons bs of
   Just (c, cs) -> do
     case c of
-      d | d == wOpenBrace     -> yield True
-      d | d == wCloseBrace    -> yield False
-      d | d == wOpenBracket   -> yield True
-      d | d == wCloseBracket  -> yield False
-      d | d == wOpenParen     -> yield True
-      d | d == wCloseParen    -> yield False
-      d | d == wt             -> yield True >> yield False
-      d | d == wf             -> yield True >> yield False
-      d | d == w1             -> yield True >> yield False
-      d | d == wn             -> yield True >> yield False
+      d | d == _braceleft     -> yield True
+      d | d == _braceright    -> yield False
+      d | d == _bracketleft   -> yield True
+      d | d == _bracketright  -> yield False
+      d | d == _parenleft     -> yield True
+      d | d == _parenright    -> yield False
+      d | d == _t             -> yield True >> yield False
+      d | d == _f             -> yield True >> yield False
+      d | d == _1             -> yield True >> yield False
+      d | d == _n             -> yield True >> yield False
       _                       -> return ()
     blankedJsonToBalancedParens' cs
   Nothing -> return ()
@@ -107,30 +107,30 @@ blankedJsonToBalancedParens2 = do
       yield cs
     Nothing -> return ()
   where gen :: (Maybe Bool, ByteString) -> Maybe (Word8, (Maybe Bool, ByteString))
-        gen (Just True  , bs) = Just (wFF, (Nothing, bs))
-        gen (Just False , bs) = Just (w00, (Nothing, bs))
+        gen (Just True  , bs) = Just (0xFF, (Nothing, bs))
+        gen (Just False , bs) = Just (0x00, (Nothing, bs))
         gen (Nothing    , bs) = case BS.uncons bs of
           Just (c, cs) -> case balancedParensOf c of
             MiniN   -> gen        (Nothing    , cs)
-            MiniT   -> Just (wFF, (Nothing    , cs))
-            MiniF   -> Just (w00, (Nothing    , cs))
-            MiniTF  -> Just (wFF, (Just False , cs))
+            MiniT   -> Just (0xFF, (Nothing    , cs))
+            MiniF   -> Just (0x00, (Nothing    , cs))
+            MiniTF  -> Just (0xFF, (Just False , cs))
           Nothing   -> Nothing
 
 data MiniBP = MiniN | MiniT | MiniF | MiniTF
 
 balancedParensOf :: Word8 -> MiniBP
 balancedParensOf c = case c of
-    d | d == wOpenBrace     -> MiniT
-    d | d == wCloseBrace    -> MiniF
-    d | d == wOpenBracket   -> MiniT
-    d | d == wCloseBracket  -> MiniF
-    d | d == wOpenParen     -> MiniT
-    d | d == wCloseParen    -> MiniF
-    d | d == wt             -> MiniTF
-    d | d == wf             -> MiniTF
-    d | d == w1             -> MiniTF
-    d | d == wn             -> MiniTF
+    d | d == _braceleft     -> MiniT
+    d | d == _braceright    -> MiniF
+    d | d == _bracketleft   -> MiniT
+    d | d == _bracketright  -> MiniF
+    d | d == _parenleft     -> MiniT
+    d | d == _parenright    -> MiniF
+    d | d == _t             -> MiniTF
+    d | d == _f             -> MiniTF
+    d | d == _1             -> MiniTF
+    d | d == _n             -> MiniTF
     _                       -> MiniN
 
 yieldBitsOfWord8 :: Monad m => Word8 -> Conduit BS.ByteString m Bool
