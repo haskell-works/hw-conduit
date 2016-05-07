@@ -25,9 +25,6 @@ executable hw-conduit-example
 library
   hs-source-dirs:       src
   exposed-modules:      HaskellWorks.Data.Conduit.ByteString
-                      , HaskellWorks.Data.Conduit.Json
-                      , HaskellWorks.Data.Conduit.Json.Blank
-                      , HaskellWorks.Data.Conduit.Json.Words
                       , HaskellWorks.Data.Conduit.List
   build-depends:        base              >= 4.7  && < 5
                       , array
@@ -45,7 +42,6 @@ test-suite hw-conduit-test
   hs-source-dirs:       test
   main-is:              Spec.hs
   other-modules:        HaskellWorks.Data.Conduit.ByteStringSpec
-                      , HaskellWorks.Data.Conduit.Json.BlankSpec
   build-depends:        base
                       , bytestring
                       , hspec
@@ -69,5 +65,4 @@ benchmark bench
                       , criterion
                       , hw-conduit
                       , mmap
-                      , resourcet
                       , vector
