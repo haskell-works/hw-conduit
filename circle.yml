@@ -1,18 +1,23 @@
 dependencies:
   cache_directories:
-    - "~/.cabal"
     - "~/.stack"
+
   pre:
-    - wget -qO- https://get.haskellstack.org/ | sh
+    - wget -qO- https://get.haskellstack.org/ | sh || stack upgrade
     - cp ./scripts/* ~/bin/
+    - stack setup
+    - stack init
+    - "git fetch --unshallow || true"
+
   override:
-    - fetch
-    - stack init --resolver lts-7.2
-    - stack build --only-dependencies
+    - stack build --test --no-run-tests --haddock --no-haddock-deps
 
 test:
   override:
-    - stack test
+   - stack test
+
+  post:
+   - find . -path "*/test-reports/*" -exec mv {} ${CIRCLE_TEST_REPORTS} \;
 
 deployment:
   release_branch:
