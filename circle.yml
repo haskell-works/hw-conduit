@@ -5,6 +5,7 @@ dependencies:
   pre:
     - wget -qO- https://get.haskellstack.org/ | sh || stack upgrade
     - stack setup
+    - stack init
     - "git fetch --unshallow || true"
 
   override:
