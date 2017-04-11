@@ -4,6 +4,7 @@ dependencies:
 
   pre:
     - wget -qO- https://get.haskellstack.org/ | sh || stack upgrade
+    - cp ./scripts/* ~/bin/
     - stack setup
     - stack init
     - "git fetch --unshallow || true"
