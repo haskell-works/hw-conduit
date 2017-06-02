@@ -7,6 +7,16 @@ import           Data.Conduit
 import qualified Data.Conduit.List      as L
 import           Data.Maybe
 
+-- | Performs the effect but ignores its result.
+-- The original value is propagated downstream.
+effect :: Monad m => (a -> m b) -> Conduit a m a
+effect f = L.mapM (\a -> f a >> return a)
+
+-- | Performs the effect but ignores its result.
+-- The original value is propagated downstream.
+effect' :: Monad m => m b -> Conduit a m a
+effect' m = L.mapM (\a -> m >> return a)
+
 inJust :: Monad m => Conduit a m c -> Conduit (Maybe a) m (Maybe c)
 inJust c = getZipConduit
       $   ZipConduit (L.filter isNothing  .|      L.map (const Nothing))
