@@ -6,6 +6,7 @@ import           Control.Monad.IO.Class
 import           Data.Conduit
 import qualified Data.Conduit.List      as L
 import           Data.Maybe
+import           Data.Time.Clock.POSIX  as T
 
 -- | Performs the effect but ignores its result.
 -- The original value is propagated downstream.
@@ -119,3 +120,16 @@ everyN n = go 1
         then go (n'+1)
         else yield x >> go 1)
 {-# INLINE everyN #-}
+
+everyNSeconds :: MonadIO m => Int -> Conduit a m a
+everyNSeconds interval = go 0
+  where
+    go t = do
+      mmsg <- await
+      case mmsg of
+        Nothing -> pure ()
+        Just msg -> do
+          ct <- liftIO $ (round . T.utcTimeToPOSIXSeconds) <$> T.getCurrentTime
+          if ct > t
+            then yield msg >> go (ct + interval)
+            else go t
