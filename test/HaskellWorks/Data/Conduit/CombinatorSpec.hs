@@ -1,12 +1,14 @@
+{-# OPTIONS_GHC -fno-warn-warnings-deprecations #-}
+
 module HaskellWorks.Data.Conduit.CombinatorSpec (spec) where
 
-import           Data.Conduit
-import           Data.Conduit.List                    as L
-import           Data.Either                          (lefts, rights)
-import           Data.Functor.Identity
-import           HaskellWorks.Data.Conduit.Combinator
+import Data.Conduit
+import Data.Conduit.List                    as L
+import Data.Either                          (lefts, rights)
+import Data.Functor.Identity
+import HaskellWorks.Data.Conduit.Combinator
 
-import           Test.Hspec
+import Test.Hspec
 
 {-# ANN module ("HLint: ignore Redundant do" :: String) #-}
 
