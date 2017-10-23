@@ -1,5 +1,5 @@
 name:                   hw-conduit
-version:                0.2.0.2
+version:                0.2.0.3
 synopsis:               Conduits for tokenizing streams.
 description:            Please see README.md
 homepage:               http://github.com/haskell-works/hw-conduit#readme
@@ -22,6 +22,7 @@ library
                       , array
                       , bytestring
                       , conduit
+                      , conduit-combinators
                       , word8
                       , time
 
