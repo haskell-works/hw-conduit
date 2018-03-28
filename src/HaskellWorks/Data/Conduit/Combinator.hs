@@ -53,7 +53,7 @@ mvarWriteC mvar = awaitForever $ \v ->
   liftIO $ tryTakeMVar mvar >> putMVar mvar v
 
 -- | Sink that writes the message to an mvar
-mvarWriteMC :: MonadIO m => (a -> b) -> MVar b -> Sink b m ()
+mvarWriteMC :: MonadIO m => (a -> b) -> MVar b -> Sink a m ()
 mvarWriteMC f mvar = awaitForever $ \v ->
   liftIO $ tryTakeMVar mvar >> putMVar mvar (f v)
 
