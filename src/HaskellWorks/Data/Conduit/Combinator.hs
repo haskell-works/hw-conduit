@@ -47,6 +47,21 @@ effectC f = L.mapM (\a -> f a >> return a)
 effectC' :: Monad m => m b -> Conduit a m a
 effectC' m = L.mapM (\a -> m >> return a)
 
+-- | Sink that writes the message to an mvar
+mvarWriteC :: MonadIO m => MVar a -> Sink a m ()
+mvarWriteC mvar = awaitForever $ \v ->
+  liftIO $ tryTakeMVar mvar >> putMVar mvar v
+
+-- | Sink that writes the message to an mvar
+mvarWriteMC :: MonadIO m => (a -> b) -> MVar b -> Sink b m ()
+mvarWriteMC f mvar = awaitForever $ \v ->
+  liftIO $ tryTakeMVar mvar >> putMVar mvar (f v)
+
+-- | Sink that writes the message to an mvar
+mvarWriteSink :: MonadIO m => MVar a -> Sink a m ()
+mvarWriteSink mvar = awaitForever $ \v ->
+  liftIO $ tryTakeMVar mvar >> putMVar mvar v
+
 -- | Creates a unified sink, which is actually two separate sinks with results
 -- being sent to one or the other based on a predicate.
 sinkWithPred :: Monad m => (a -> Bool) -> Sink a m () -> Sink a m () -> Sink a m ()
@@ -93,7 +108,7 @@ everyNSeconds interval = go 0
       case mmsg of
         Nothing -> pure ()
         Just msg -> do
-          ct <- liftIO $ (round . T.utcTimeToPOSIXSeconds) <$> T.getCurrentTime
+          ct <- liftIO $ round . T.utcTimeToPOSIXSeconds <$> T.getCurrentTime
           if ct > t
             then yield msg >> go (ct + interval)
             else go t

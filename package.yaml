@@ -1,0 +1,55 @@
+name: hw-conduit
+version: '0.2.0.3'
+synopsis: Conduits for tokenizing streams.
+description: Please see README.md
+category: Data, Conduit
+author: John Ky
+maintainer: newhoggy@gmail.com
+copyright: 2016 John Ky
+license: MIT
+github: haskell-works/hw-conduit
+homepage: http://github.com/haskell-works/hw-conduit#readme
+extra-source-files:
+- README.md
+ghc-options: -Wall
+dependencies:
+- base >=4 && <5
+- bytestring
+- conduit
+library:
+  source-dirs: src
+  ghc-options:
+  - -O2
+  - -msse4.2
+  exposed-modules:
+  - HaskellWorks.Data.Conduit.ByteString
+  - HaskellWorks.Data.Conduit.Combinator
+  - HaskellWorks.Data.Conduit.List
+  dependencies:
+  - array
+  - conduit-combinators
+  - word8
+  - time
+tests:
+  hw-conduit-test:
+    main: Spec.hs
+    source-dirs: test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - hspec
+    - hw-conduit
+benchmarks:
+  bench:
+    main: Main.hs
+    source-dirs: bench
+    ghc-options:
+    - -O2
+    - -msse4.2
+    dependencies:
+    - criterion
+    - hw-conduit
+    - mmap
+    - vector
