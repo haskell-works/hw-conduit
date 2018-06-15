@@ -1,7 +1,7 @@
 name: hw-conduit
 version: '0.2.0.3'
 synopsis: Conduits for tokenizing streams.
-description: Please see README.md
+description: Conduits for tokenizing streams. Please see README.md
 category: Data, Conduit
 author: John Ky
 maintainer: newhoggy@gmail.com
