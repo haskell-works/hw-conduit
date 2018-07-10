@@ -28,6 +28,7 @@ library:
   dependencies:
   - array
   - conduit-combinators
+  - transformers
   - word8
   - time
 tests:

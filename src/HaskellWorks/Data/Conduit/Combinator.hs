@@ -1,11 +1,12 @@
 module HaskellWorks.Data.Conduit.Combinator where
 
-import Control.Concurrent     (MVar, putMVar, tryTakeMVar)
-import Control.Monad          (void)
+import Control.Concurrent        (MVar, putMVar, tryTakeMVar)
+import Control.Monad             (void)
 import Control.Monad.IO.Class
+import Control.Monad.Trans.Class (lift)
 import Data.Conduit
 import Data.Maybe
-import Data.Time.Clock.POSIX  as T
+import Data.Time.Clock.POSIX     as T
 
 import qualified Data.Conduit.List as L
 
@@ -98,6 +99,26 @@ everyN n = go 1
         then go (n'+1)
         else yield x >> go 1)
 {-# INLINE everyN #-}
+
+-- | Performs an action every N messages, but ignores its result. All original values are propagted downstream.
+onEveryN :: Monad m => Int -> (a -> m b) -> Conduit a m a
+onEveryN n f = go 1
+  where
+    go i = await >>= maybe (pure ()) (\x ->
+            if i < n
+              then yield x >> go (i + 1)
+              else lift (f x) >> yield x >> go 1)
+{-# INLINE onEveryN #-}
+
+-- | Performs an action every N messages, but ignores its result. All original values are propagted downstream.
+onEveryN' :: Monad m => Int -> m b -> Conduit a m a
+onEveryN' n m = go 1
+  where
+    go i = await >>= maybe (pure ()) (\x ->
+            if i < n
+              then yield x >> go (i + 1)
+              else lift m >> yield x >> go 1)
+{-# INLINE onEveryN' #-}
 
 -- | Propagate a message every N seconds and drop all others.
 everyNSeconds :: MonadIO m => Int -> Conduit a m a
