@@ -2,14 +2,20 @@ module HaskellWorks.Data.Conduit.ByteString
   ( rechunk
   ) where
 
-import           Control.Monad
-import qualified Data.ByteString as BS
-import           Data.Conduit
+import Control.Monad
+import Data.Conduit
 
-rechunk :: Monad m => Int -> Conduit BS.ByteString m BS.ByteString
+import qualified Data.ByteString as BS
+
+rechunk :: Monad m
+  => Int
+  -> ConduitT BS.ByteString BS.ByteString m ()
 rechunk = rechunk' BS.empty
 
-rechunk' :: Monad m => BS.ByteString -> Int -> Conduit BS.ByteString m BS.ByteString
+rechunk' :: Monad m
+  => BS.ByteString
+  -> Int
+  -> ConduitT BS.ByteString BS.ByteString m ()
 rechunk' as n | BS.length as >= n = do
   yield (BS.take n as)
   rechunk' (BS.drop n as) n
@@ -22,7 +28,9 @@ rechunk' as n = do
       rechunk' (BS.drop n bs) n
     Nothing -> unless (BS.null as) $ yield as
 
-slurp :: Monad m => Int -> ConduitM BS.ByteString BS.ByteString m (Maybe [BS.ByteString])
+slurp :: Monad m
+  => Int
+  -> ConduitM BS.ByteString BS.ByteString m (Maybe [BS.ByteString])
 slurp = go []
   where go rs n | n > 0 = do
           mbs <- await

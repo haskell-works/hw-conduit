@@ -3,9 +3,11 @@ module HaskellWorks.Data.Conduit.List
   ( runListConduit
   ) where
 
-import           Data.Conduit
-import           Data.Conduit.List as CL
-import           Prelude           as P
+import Data.Conduit
+import Prelude
 
-runListConduit :: Conduit i [] o -> [i] -> [o]
-runListConduit c is = P.concat $ sourceList is =$ c $$ consume
+import qualified Data.Conduit.List as CL
+import qualified Prelude           as P
+
+runListConduit :: ConduitT i o [] () -> [i] -> [o]
+runListConduit c is = P.concat $ runConduit $ CL.sourceList is .| c .| CL.consume

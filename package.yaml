@@ -31,6 +31,7 @@ library:
   - transformers
   - word8
   - time
+  - unliftio-core
 tests:
   hw-conduit-test:
     main: Spec.hs
