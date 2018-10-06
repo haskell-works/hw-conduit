@@ -1,4 +1,5 @@
 # hw-conduit
-[![0.0-branch](https://circleci.com/gh/haskell-conduit/hw-conduit/tree/0.0-branch.svg?style=svg)](https://circleci.com/gh/haskell-conduit/hw-conduit/tree/0.0-branch)
+
+[![CircleCI](https://circleci.com/gh/haskell-works/hw-conduit.svg?style=svg)](https://circleci.com/gh/haskell-works/hw-conduit)
 
 Extra facilities for conduits.
