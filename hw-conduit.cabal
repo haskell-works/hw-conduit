@@ -1,37 +1,47 @@
-name:           hw-conduit
-version:        0.2.0.5
-synopsis:       Conduits for tokenizing streams.
-description:    Conduits for tokenizing streams. Please see README.md
-category:       Data, Conduit
-homepage:       http://github.com/haskell-works/hw-conduit#readme
-bug-reports:    https://github.com/haskell-works/hw-conduit/issues
-author:         John Ky
-maintainer:     newhoggy@gmail.com
-copyright:      2016 John Ky
-license:        MIT
-license-file:   LICENSE
-build-type:     Simple
-cabal-version:  >= 1.10
+cabal-version:      2.2
+
+name:               hw-conduit
+version:            0.2.0.5
+synopsis:           Conduits for tokenizing streams.
+description:        Conduits for tokenizing streams. Please see README.md
+category:           Data, Conduit
+homepage:           http://github.com/haskell-works/hw-conduit#readme
+bug-reports:        https://github.com/haskell-works/hw-conduit/issues
+author:             John Ky
+maintainer:         newhoggy@gmail.com
+copyright:          2016-2019 John Ky
+license:            MIT
+license-file:       LICENSE
+build-type:         Simple
 extra-source-files:
-    README.md
+  README.md
+
+common base                 { build-depends: base                 >= 4.9        && < 5      }
+
+common array                { build-depends: array                                          }
+common bytestring           { build-depends: bytestring                                     }
+common conduit              { build-depends: conduit                                        }
+common conduit-combinators  { build-depends: conduit-combinators                            }
+common criterion            { build-depends: criterion                                      }
+common hspec                { build-depends: hspec                                          }
+common hw-conduit           { build-depends: hw-conduit                                     }
+common mmap                 { build-depends: mmap                                           }
+common time                 { build-depends: time                                           }
+common transformers         { build-depends: transformers                                   }
+common unliftio-core        { build-depends: unliftio-core                                  }
+common vector               { build-depends: vector                                         }
+common word8                { build-depends: word8                                          }
+
+common config
+  default-language: Haskell2010
 
 source-repository head
   type: git
   location: https://github.com/haskell-works/hw-conduit
 
 library
-  exposed-modules:
-      HaskellWorks.Data.Conduit.ByteString
-      HaskellWorks.Data.Conduit.Combinator
-      HaskellWorks.Data.Conduit.List
-  other-modules:
-      Paths_hw_conduit
-  hs-source-dirs:
-      src
-  ghc-options: -Wall -O2 -msse4.2
-  build-depends:
-      array
-    , base >=4.9 && <5
+  import:   base, config
+    , array
     , bytestring
     , conduit
     , conduit-combinators
@@ -39,41 +49,43 @@ library
     , transformers
     , unliftio-core
     , word8
-  default-language: Haskell2010
+  exposed-modules:
+    HaskellWorks.Data.Conduit.ByteString
+    HaskellWorks.Data.Conduit.Combinator
+    HaskellWorks.Data.Conduit.List
+  other-modules:      Paths_hw_conduit
+  autogen-modules:    Paths_hw_conduit
+  hs-source-dirs:     src
+  ghc-options:        -Wall -O2 -msse4.2
 
 test-suite hw-conduit-test
-  type: exitcode-stdio-1.0
-  main-is: Spec.hs
-  other-modules:
-      HaskellWorks.Data.Conduit.ByteStringSpec
-      HaskellWorks.Data.Conduit.CombinatorSpec
-      Paths_hw_conduit
-  hs-source-dirs:
-      test
-  ghc-options: -Wall -threaded -rtsopts -with-rtsopts=-N
-  build-depends:
-      base >=4.9 && <5
-    , bytestring
-    , conduit
-    , hspec
-    , hw-conduit
-  default-language: Haskell2010
+  import:   base, config
+          , bytestring
+          , conduit
+          , hspec
+          , hw-conduit
+  type:               exitcode-stdio-1.0
+  main-is:            Spec.hs
+  hs-source-dirs:     test
+  ghc-options:        -Wall -threaded -rtsopts -with-rtsopts=-N
   build-tool-depends: hspec-discover:hspec-discover
+  autogen-modules:    Paths_hw_conduit
+  other-modules:
+    HaskellWorks.Data.Conduit.ByteStringSpec
+    HaskellWorks.Data.Conduit.CombinatorSpec
+    Paths_hw_conduit
 
 benchmark bench
-  type: exitcode-stdio-1.0
-  main-is: Main.hs
-  other-modules:
-      Paths_hw_conduit
-  hs-source-dirs:
-      bench
-  ghc-options: -Wall -O2 -msse4.2
-  build-depends:
-      base >=4.9 && <5
-    , bytestring
-    , conduit
-    , criterion
-    , hw-conduit
-    , mmap
-    , vector
-  default-language: Haskell2010
+  import:   base, config
+          , bytestring
+          , conduit
+          , criterion
+          , hw-conduit
+          , mmap
+          , vector
+  type:               exitcode-stdio-1.0
+  main-is:            Main.hs
+  other-modules:      Paths_hw_conduit
+  autogen-modules:    Paths_hw_conduit
+  hs-source-dirs:     bench
+  ghc-options:        -Wall -O2 -msse4.2
