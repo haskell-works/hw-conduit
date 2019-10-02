@@ -1,18 +1,19 @@
 cabal-version:      2.2
 
-name:               hw-conduit
-version:            0.2.0.5
-synopsis:           Conduits for tokenizing streams.
-description:        Conduits for tokenizing streams. Please see README.md
-category:           Data, Conduit
-homepage:           http://github.com/haskell-works/hw-conduit#readme
-bug-reports:        https://github.com/haskell-works/hw-conduit/issues
-author:             John Ky
-maintainer:         newhoggy@gmail.com
-copyright:          2016-2019 John Ky
-license:            MIT
-license-file:       LICENSE
-build-type:         Simple
+name:                 hw-conduit
+version:              0.2.0.5
+synopsis:             Conduits for tokenizing streams.
+description:          Conduits for tokenizing streams. Please see README.md
+category:             Data, Conduit
+homepage:             http://github.com/haskell-works/hw-conduit#readme
+bug-reports:          https://github.com/haskell-works/hw-conduit/issues
+author:               John Ky
+maintainer:           newhoggy@gmail.com
+copyright:            2016-2019 John Ky
+license:              MIT
+license-file:         LICENSE
+tested-with:          GHC == 8.8.1, GHC == 8.6.5, GHC == 8.4.4, GHC == 8.2.2
+build-type:           Simple
 extra-source-files:
   README.md
 
