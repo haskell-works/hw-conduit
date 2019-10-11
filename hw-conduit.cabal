@@ -1,7 +1,7 @@
 cabal-version:      2.2
 
 name:                 hw-conduit
-version:              0.2.0.5
+version:              0.2.0.6
 synopsis:             Conduits for tokenizing streams.
 description:          Conduits for tokenizing streams. Please see README.md
 category:             Data, Conduit
