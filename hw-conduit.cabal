@@ -72,10 +72,8 @@ test-suite hw-conduit-test
   hs-source-dirs:       test
   ghc-options:          -Wall -threaded -rtsopts -with-rtsopts=-N
   build-tool-depends:   hspec-discover:hspec-discover
-  autogen-modules:      Paths_hw_conduit
   other-modules:        HaskellWorks.Data.Conduit.ByteStringSpec
                         HaskellWorks.Data.Conduit.CombinatorSpec
-                        Paths_hw_conduit
 
 benchmark bench
   import:               base, config
@@ -87,8 +85,6 @@ benchmark bench
                       , vector
   type:                 exitcode-stdio-1.0
   main-is:              Main.hs
-  other-modules:        Paths_hw_conduit
-  autogen-modules:      Paths_hw_conduit
   hs-source-dirs:       bench
   ghc-options:          -Wall -O2 -msse4.2
 
