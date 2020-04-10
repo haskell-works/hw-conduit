@@ -12,7 +12,7 @@ maintainer:           newhoggy@gmail.com
 copyright:            2016-2020 John Ky
 license:              MIT
 license-file:         LICENSE
-tested-with:          GHC == 8.8.3, GHC == 8.6.5, GHC == 8.4.4
+tested-with:          GHC == 8.10.1, GHC == 8.8.3, GHC == 8.6.5, GHC == 8.4.4
 build-type:           Simple
 extra-source-files:   README.md
 
@@ -29,7 +29,7 @@ common hspec                      { build-depends: hspec                      >=
 common mmap                       { build-depends: mmap                       >= 0.5        && < 0.6    }
 common time                       { build-depends: time                       >= 1.4        && < 1.10   }
 common transformers               { build-depends: transformers               >= 0.4        && < 0.6    }
-common unliftio-core              { build-depends: unliftio-core              >= 0.1.2.0    && < 0.2    }
+common unliftio-core              { build-depends: unliftio-core              >= 0.1.2.0    && < 0.3    }
 common vector                     { build-depends: vector                     >= 0.12       && < 0.13   }
 common word8                      { build-depends: word8                      >= 0.1        && < 0.2    }
 
