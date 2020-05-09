@@ -10,7 +10,7 @@ import HaskellWorks.Data.Conduit.Combinator
 
 import Test.Hspec
 
-{-# ANN module ("HLint: ignore Redundant do" :: String) #-}
+{- HLINT ignore "Redundant do"        -}
 
 maybes :: [Maybe Int]
 maybes = [Just 1, Nothing, Just 2, Nothing]
