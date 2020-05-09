@@ -2,11 +2,11 @@
 
 module HaskellWorks.Data.Conduit.ByteStringSpec (spec) where
 
-import           HaskellWorks.Data.Conduit.ByteString
-import           HaskellWorks.Data.Conduit.List
-import           Test.Hspec
+import HaskellWorks.Data.Conduit.ByteString
+import HaskellWorks.Data.Conduit.List
+import Test.Hspec
 
-{-# ANN module ("HLint: ignore Redundant do" :: String) #-}
+{- HLINT ignore "Redundant do"        -}
 
 spec :: Spec
 spec = describe "HaskellWorks.Data.Conduit.ByteStringSpec" $ do
