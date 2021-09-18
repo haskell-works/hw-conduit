@@ -12,14 +12,14 @@ maintainer:           newhoggy@gmail.com
 copyright:            2016-2021 John Ky
 license:              MIT
 license-file:         LICENSE
-tested-with:          GHC == 9.0.1, GHC == 8.10.4, GHC == 8.8.4, GHC == 8.6.5
+tested-with:          GHC == 9.0.1, GHC == 8.10.7, GHC == 8.8.4, GHC == 8.6.5
 build-type:           Simple
 extra-source-files:   README.md
 
 common base                       { build-depends: base                       >= 4.11       && < 5      }
 
 common array                      { build-depends: array                      >= 0.5        && < 0.6    }
-common bytestring                 { build-depends: bytestring                 >= 0.9        && < 0.11   }
+common bytestring                 { build-depends: bytestring                 >= 0.9        && < 0.12   }
 common conduit                    { build-depends: conduit                    >= 1.2        && < 1.4    }
 common conduit-combinators        { build-depends: conduit-combinators        >= 1.0        && < 1.4    }
 common criterion                  { build-depends: criterion                  >= 1.2        && < 1.6    }
@@ -27,8 +27,8 @@ common doctest                    { build-depends: doctest                    >=
 common doctest-discover           { build-depends: doctest-discover           >= 0.2        && < 0.3    }
 common hspec                      { build-depends: hspec                      >= 2.4        && < 2.8    }
 common mmap                       { build-depends: mmap                       >= 0.5        && < 0.6    }
-common time                       { build-depends: time                       >= 1.4        && < 1.10   }
-common transformers               { build-depends: transformers               >= 0.4        && < 0.6    }
+common time                       { build-depends: time                       >= 1.4        && < 1.2    }
+common transformers               { build-depends: transformers               >= 0.5.6.2    && < 0.7    }
 common unliftio-core              { build-depends: unliftio-core              >= 0.1.2.0    && < 0.3    }
 common vector                     { build-depends: vector                     >= 0.12       && < 0.13   }
 common word8                      { build-depends: word8                      >= 0.1        && < 0.2    }
